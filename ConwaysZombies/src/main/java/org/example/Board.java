@@ -1,14 +1,29 @@
 package org.example;
 
+/**
+ * the Board class contains the grid for Conway's Game and the game's primary logic
+ */
 public class Board {
+
+    /**
+     * an enum used to represent the state, "living" or "zombie," of each point on the board (empty cells are considered "dead")
+     */
     public enum Type {
         living,
-        zombie,
-        dead
+        zombie
     }
 
+    /**
+     * the number of columns on the board
+     */
     int cols;
+    /**
+     * the number of rows on the board
+     */
     int rows;
+    /**
+     * a 2D array of Type enums representing the current board. Each space is living, zombie, or empty (dead)
+     */
     Type[][] grid;
 
     public Board(int cols, int rows) {
@@ -17,6 +32,10 @@ public class Board {
         grid = new Type[cols][rows];
     }
 
+    /**
+     * Runs Conway's Game on the present board for a specified number of generations
+     * @param generations the number of generations for which the game should run
+     */
     public void runGame(int generations) {
         for (int generation = 0; generation < generations; generation++) {
             System.out.println("Generation " + (generation + 1) + ":");
@@ -25,6 +44,11 @@ public class Board {
         }
     }
 
+    /**
+     * function to create a grid representing the game's next generation
+     * @param grid the current grid
+     * @return the grid representing the next generation
+     */
     public Type[][] nextGeneration(Type[][] grid) {
         int cols = grid.length;
         int rows = grid[0].length;
@@ -54,6 +78,13 @@ public class Board {
 
     // count live neighbors of a point
 
+    /**
+     * counts a point's living neighbors
+     * @param grid the current grid
+     * @param x x-coordinate for point
+     * @param y y-coordinate for point
+     * @return an int of the point's living neighbors
+     */
     private int countLiveNeighbors(Type[][] grid, int x, int y) {
         int count = 0;
         int cols = grid.length;
@@ -65,8 +96,6 @@ public class Board {
                 int neighborX = x + i;
                 int neighborY = y + j;
 
-                // check if neighbor is within the bounds of the grid
-
                 if (neighborX >= 0 && neighborX < cols && neighborY >= 0 && neighborY < rows) {
                     if (!(i == 0 && j == 0) && grid[neighborX][neighborY] == Type.living) {
                         count++;
@@ -77,6 +106,10 @@ public class Board {
         return count;
     }
 
+    /**
+     * prints a representation of the current version of the grid
+     * @param grid the current grid
+     */
     private void printGrid(Type[][] grid) {
         int cols = grid.length;
         int rows = grid[0].length;
