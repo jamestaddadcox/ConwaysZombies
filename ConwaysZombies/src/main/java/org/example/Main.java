@@ -9,9 +9,10 @@ public class Main {
         // initialize grid
 
         board.grid[1][1] = Board.Type.living;
-        board.grid[1][2] = Board.Type.living;
-        board.grid[1][3] = Board.Type.living;
+        board.grid[1][0] = Board.Type.living;
+        board.grid[2][1] = Board.Type.living;
         board.grid[4][4] = Board.Type.living;
+        board.grid[2][0] = Board.Type.zombie;
 
         // run the game
 
