@@ -68,20 +68,13 @@ public class Board {
                 // check if neighbor is within the bounds of the grid
 
                 if (neighborX >= 0 && neighborX < cols && neighborY >= 0 && neighborY < rows) {
-                    if (grid[neighborX][neighborY] == Type.living) {
+                    if (!(i == 0 && j == 0) && grid[neighborX][neighborY] == Type.living) {
                         count++;
                     }
                 }
             }
-
-            // if the center cell is alive, subtract its value from the final count
-            if (grid[x][y] == Type.living) {
-                count--;
-            }
-
         }
         return count;
-
     }
 
     private void printGrid(Type[][] grid) {
