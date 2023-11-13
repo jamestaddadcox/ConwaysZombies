@@ -72,9 +72,33 @@ public class CLI {
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println(e.getMessage());
             }
-
-
         }
+
+        userInput = "";
+        System.out.println("Please enter the coordinates for a zombie cell in the format \"x,y\", or enter C to continue.");
+
+        while (!(userInput.equalsIgnoreCase("C"))) {
+            try {
+                userInput = myScanner.nextLine();
+                if (userInput.equalsIgnoreCase("C")) {
+                    break;
+                } else {
+                    int[] coordinates = parseAnswerAsCoordinate(userInput);
+                    if (coordinates[0] >= gridSize || coordinates[1] >= gridSize || coordinates[0] < 0 || coordinates[1] < 0) {
+                        throw new ArrayIndexOutOfBoundsException("Error: Point coordinates must be positive integers within a 0-indexed " + gridSize + " by " + gridSize + " grid.");
+                    }
+                    board.grid[coordinates[0]][coordinates[1]] = Board.Type.zombie;
+                    System.out.println("Please enter another set of coordinates for a zombie cell in the format \"x,y\", or enter C to continue.");
+                }
+            } catch (InputMismatchException | NumberFormatException e) {
+                System.out.println("Error: Invalid input format. Please enter coordinates in the format \"x,y\".");
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+
+
 
         board.runGame(generations);
 
