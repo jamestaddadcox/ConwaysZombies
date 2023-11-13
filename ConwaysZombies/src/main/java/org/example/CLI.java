@@ -50,27 +50,33 @@ public class CLI {
 
         Board board = new Board(gridSize, gridSize);
 
-        while (true) {
-            System.out.println("Please enter the coordinates for a living cell in the format \"x, y\"; or enter C to continue.");
+        String userInput = "";
+
+        System.out.println("Please enter the coordinates for a living cell in the format \"x,y\", or enter C to continue.");
+
+        while (!(userInput.equalsIgnoreCase("C"))) {
             try {
-                String answer = myScanner.nextLine();
-                if (answer.equalsIgnoreCase("C")) {
+                userInput = myScanner.nextLine();
+                if (userInput.equalsIgnoreCase("C")) {
                     break;
                 } else {
-                    int[] coordinates = parseAnswerAsCoordinate(answer);
-                    if (coordinates[0] >= gridSize || coordinates[1] >= gridSize) {
-                        throw new ArrayIndexOutOfBoundsException("Error: Point coordinates must occur within a 0-indexed " + gridSize + " by " + gridSize + " grid.");
+                    int[] coordinates = parseAnswerAsCoordinate(userInput);
+                    if (coordinates[0] >= gridSize || coordinates[1] >= gridSize || coordinates[0] < 0 || coordinates[1] < 0) {
+                        throw new ArrayIndexOutOfBoundsException("Error: Point coordinates must be positive integers within a 0-indexed " + gridSize + " by " + gridSize + " grid.");
                     }
                     board.grid[coordinates[0]][coordinates[1]] = Board.Type.living;
-                    break;
+                    System.out.println("Please enter another set of coordinates for a living cell in the format \"x,y\", or enter C to continue.");
                 }
             } catch (InputMismatchException | NumberFormatException e) {
-                System.out.println("Error: Invalid input format. Please enter coordinates in the format \"x, y\".");
+                System.out.println("Error: Invalid input format. Please enter coordinates in the format \"x,y\".");
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println(e.getMessage());
             }
+
+
         }
 
+        board.runGame(generations);
 
 
 
@@ -83,7 +89,7 @@ public class CLI {
 
     public static int[] parseAnswerAsCoordinate(String userInput) {
         int[] coordinates = new int[2];
-        String[] input = userInput.split(", ");
+        String[] input = userInput.split(",");
         coordinates[0] = Integer.parseInt(input[0]);
         coordinates[1] = Integer.parseInt(input[1]);
         return coordinates;
