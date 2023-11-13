@@ -78,7 +78,7 @@ public class Board {
         for (int i = 0; i < cols; i++) {
             for (int j = 0; j < rows; j++) {
                 if (newGrid[i][j] == Type.living && checkZombieNeighbor(newGrid, i, j)) {
-                    gridPostZombieAttack[i][j] = Type.dead;
+                    gridPostZombieAttack[i][j] = Type.zombie;
                 } else if (newGrid[i][j] == Type.living) {
                     gridPostZombieAttack[i][j] = Type.living;
                 } else if (newGrid[i][j] == Type.zombie) {

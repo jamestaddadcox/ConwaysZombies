@@ -13,10 +13,14 @@ public class Main {
         board.grid[2][1] = Board.Type.living;
         board.grid[4][4] = Board.Type.living;
         board.grid[2][0] = Board.Type.zombie;
+        board.grid[3][1] = Board.Type.zombie;
 
         // run the game
 
         board.runGame(5);
+
+        CLI cli = new CLI();
+        cli.runCLI();
 
     }
 
